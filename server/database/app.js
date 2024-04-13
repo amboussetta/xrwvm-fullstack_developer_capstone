@@ -113,6 +113,26 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
   }
 });
 
+// Express route to fetch by reviews carmake
+app.get('/fetchReviews/car/:carmake', async (req, res) => {
+    try {
+      const documents = await Reviews.find({car_make: req.params.carmake});
+      res.json(documents);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching documents' });
+    }
+  });
+
+// Express route to fetch reviews by carmake/:model
+app.get('/fetchReviews/car/:carmake/:model', async (req, res) => {
+    try {
+      const documents = await Reviews.find();
+      res.json(documents);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching documents' });
+    }
+  });
+
 // Start the Express server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
